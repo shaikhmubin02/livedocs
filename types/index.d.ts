@@ -14,11 +14,13 @@ declare type SearchParamProps = {
     creatorId: string;
     email: string;
     title: string;
+    isBoard: string;
   };
   
   declare type CreateDocumentParams = {
     userId: string;
     email: string;
+    isBoard: string;
   };
   
   declare type User = {

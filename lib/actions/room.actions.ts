@@ -6,14 +6,15 @@ import { revalidatePath } from 'next/cache';
 import { getAccessType, parseStringify } from '../utils';
 import { redirect } from 'next/navigation';
 
-export const createDocument = async ({ userId, email }: CreateDocumentParams) => {
+export const createDocument = async ({ userId, email, isBoard }: CreateDocumentParams) => {
   const roomId = nanoid();
 
   try {
     const metadata = {
       creatorId: userId,
       email,
-      title: 'Untitled'
+      title: 'Untitled',
+      isBoard,
     }
 
     const usersAccesses: RoomAccesses = {

@@ -10,7 +10,11 @@ const AddDocumentBtn = ({ userId, email }: AddDocumentBtnProps) => {
 
   const addDocumentHandler = async () => {
     try {
-      const room = await createDocument({ userId, email });
+      const room = await createDocument({ 
+        userId, 
+        email, 
+        isBoard: 'false' 
+      });
 
       if(room) router.push(`/documents/${room.id}`);
     } catch (error) {

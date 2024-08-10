@@ -18,7 +18,12 @@ import {
 
 import { Button } from "./ui/button";
 
-export const DeleteModal = ({ roomId }: DeleteModalProps) => {
+interface DeleteModalProps {
+  roomId: string;
+  isBoard: string; 
+}
+
+export const DeleteModal = ({ roomId, isBoard }: DeleteModalProps) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -57,10 +62,14 @@ export const DeleteModal = ({ roomId }: DeleteModalProps) => {
             height={48}
             className="mb-4"
           />
-          <DialogTitle>Delete document</DialogTitle>
+          <DialogTitle>
+            {isBoard === 'true' ? "Delete board" : "Delete document"}
+          </DialogTitle>
           <DialogDescription>
-            Are you sure you want to delete this document? This action cannot be
-            undone.
+            {isBoard === 'true' 
+              ? "Are you sure you want to delete this board? This action cannot be undone."
+              : "Are you sure you want to delete this document? This action cannot be undone."
+            }
           </DialogDescription>
         </DialogHeader>
 
@@ -81,3 +90,5 @@ export const DeleteModal = ({ roomId }: DeleteModalProps) => {
     </Dialog>
   );
 };
+
+export default DeleteModal;

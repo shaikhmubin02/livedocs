@@ -1,11 +1,12 @@
+import AddBoardBtn from '@/components/AddBoardBtn';
 import AddDocumentBtn from '@/components/AddDocumentBtn';
 import { DeleteModal } from '@/components/DeleteModal';
-import Header from '@/components/Header'
+import Header from '@/components/Header';
 import Notifications from '@/components/Notifications';
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 import { getDocuments } from '@/lib/actions/room.actions';
 import { dateConverter } from '@/lib/utils';
-import { SignedIn, UserButton } from '@clerk/nextjs'
+import { SignedIn, UserButton } from '@clerk/nextjs';
 import { currentUser } from '@clerk/nextjs/server';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +14,7 @@ import { redirect } from 'next/navigation';
 
 const Home = async () => {
   const clerkUser = await currentUser();
-  if(!clerkUser) redirect('/sign-in');
+  if (!clerkUser) redirect('/sign-in');
 
   const roomDocuments = await getDocuments(clerkUser.emailAddresses[0].emailAddress);
 
@@ -31,20 +32,26 @@ const Home = async () => {
       {roomDocuments.data.length > 0 ? (
         <div className="document-list-container">
           <div className="document-list-title">
-            <h3 className="text-28-semibold">All documents</h3>
-            <AddDocumentBtn 
-              userId={clerkUser.id}
-              email={clerkUser.emailAddresses[0].emailAddress}
-            />
+            <h3 className="text-28-semibold pb-12">All documents</h3>
+            <div className="buttons-container">
+              <AddDocumentBtn 
+                userId={clerkUser.id}
+                email={clerkUser.emailAddresses[0].emailAddress}
+              />
+              <AddBoardBtn 
+                userId={clerkUser.id}
+                email={clerkUser.emailAddresses[0].emailAddress}
+              />
+            </div>
           </div>
           <ul className="document-ul">
             {roomDocuments.data.map(({ id, metadata, createdAt }: any) => (
               <li key={id} className="document-list-item">
-                <Link href={`/documents/${id}`} className="flex flex-1 items-center gap-4">
+                <Link href={metadata.isBoard ? `/board/${id}` : `/documents/${id}`} className="flex flex-1 items-center gap-4">
                   <div className="hidden rounded-md bg-dark-500 p-2 sm:block">
                     <Image 
-                      src="/assets/icons/doc.svg"
-                      alt="file"
+                      src={metadata.isBoard === 'true' ? "/assets/icons/board.png" : "/assets/icons/doc.svg"} 
+                      alt={metadata.isBoard === 'true' ? "Board" : "Document"}
                       width={40}
                       height={40}
                     />
@@ -54,12 +61,12 @@ const Home = async () => {
                     <p className="text-sm font-light text-blue-100">Created about {dateConverter(createdAt)}</p>
                   </div>
                 </Link>
-                <DeleteModal roomId={id} />
+                <DeleteModal roomId={id} isBoard={metadata.isBoard} />
               </li>
             ))}
           </ul>
         </div>
-      ): (
+      ) : (
         <div className="document-list-empty">
           <Image 
             src="/assets/icons/doc.svg"
@@ -73,10 +80,14 @@ const Home = async () => {
             userId={clerkUser.id}
             email={clerkUser.emailAddresses[0].emailAddress}
           />
+          <AddBoardBtn 
+            userId={clerkUser.id}
+            email={clerkUser.emailAddresses[0].emailAddress}
+          />
         </div>
       )}
     </main>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

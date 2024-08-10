@@ -50,6 +50,10 @@
     @apply bg-gradient-to-t from-red-500 to-red-400;
   }
 
+  .gradient-light-gray {
+    @apply bg-gradient-to-t from-gray-300 to-gray-200;
+  }
+
   .shad-dialog {
     @apply w-full max-w-[400px] rounded-xl border-none bg-doc bg-cover px-5 py-7 shadow-xl sm:min-w-[500px] !important;
   }
@@ -97,10 +101,14 @@
   .document-list-container {
     @apply flex flex-col items-center mb-10 w-full gap-10 px-5;
   }
-
+  
   .document-list-title {
     @apply max-w-[730px] items-end flex w-full justify-between;
   }
+  
+  .buttons-container {
+    @apply flex flex-col gap-3 items-end;
+  }    
 
   .document-list-item {
     @apply flex items-center justify-between gap-4 rounded-lg bg-doc bg-cover p-5 shadow-xl;
