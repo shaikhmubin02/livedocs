@@ -19,7 +19,7 @@ function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }
 
-export function Editor() {
+export function Editor({ roomId, currentUserType }: { roomId: string, currentUserType: UserType }) {
   const initialConfig = {
     namespace: 'Editor',
     nodes: [HeadingNode],
