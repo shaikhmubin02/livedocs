@@ -11,6 +11,7 @@ import { updateDocument } from '@/lib/actions/room.actions';
 import Loader from './Loader';
 import ShareModal from './ShareModal';
 import Whiteboard from './Whiteboard';
+import { Wboard } from './component/wboard';
 
 const CollaborativeRoomc = ({ roomId, roomMetadata, users, currentUserType }: CollaborativeRoomProps) => {
   const [documentTitle, setDocumentTitle] = useState(roomMetadata.title);
@@ -120,7 +121,7 @@ const CollaborativeRoomc = ({ roomId, roomMetadata, users, currentUserType }: Co
               </SignedIn>
             </div>
           </Header>
-        <Whiteboard />
+        <Wboard />
         </div>
       </ClientSideSuspense>
     </RoomProvider>

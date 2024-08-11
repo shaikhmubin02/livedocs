@@ -35,6 +35,24 @@
   }
 }
 
+/* Add this to your CSS file */
+
+.tool-button {
+  border: 2px solid transparent;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.tool-button.active {
+  border-color: #0070f3; /* Active border color */
+  background-color: rgba(0, 112, 243, 0.1); /* Active background color */
+}
+
+/* Optional: Add hover styles */
+.tool-button:hover {
+  background-color: rgba(0, 112, 243, 0.05); /* Hover background color */
+}
+
+
 @layer utilities {
   .text-28-semibold {
     @apply text-[28px] font-semibold;
