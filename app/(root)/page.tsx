@@ -47,7 +47,7 @@ const Home = async () => {
           <ul className="document-ul">
             {roomDocuments.data.map(({ id, metadata, createdAt }: any) => (
               <li key={id} className="document-list-item">
-                <Link href={metadata.isBoard ? `/board/${id}` : `/documents/${id}`} className="flex flex-1 items-center gap-4">
+                <Link href={metadata.isBoard === 'true'? `/board/${id}` : `/documents/${id}`} className="flex flex-1 items-center gap-4">
                   <div className="hidden rounded-md bg-dark-500 p-2 sm:block">
                     <Image 
                       src={metadata.isBoard === 'true' ? "/assets/icons/board.png" : "/assets/icons/doc.svg"} 
